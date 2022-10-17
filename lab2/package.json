@@ -1,0 +1,25 @@
+{
+  "name": "zpsm2022",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MateuszH96/ZPSM2022.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MateuszH96/ZPSM2022/issues"
+  },
+  "homepage": "https://github.com/MateuszH96/ZPSM2022#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
