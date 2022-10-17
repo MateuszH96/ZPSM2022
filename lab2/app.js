@@ -11,14 +11,23 @@ function find_min(arr){
 function viewInfo(toInfo){
     console.log(toInfo.name)
     console.log(toInfo.surname)
-    toAverageU = 0
-    toAverageD = 0
+    let toAverageU = 0
+    let toAverageD = 0
     for(const grades of toInfo.allGrades){
         toAverageU += _.mean(grades.grades) * grades.weight
         toAverageD += grades.weight
     }
     console.log(toAverageU/toAverageD)
 
+}
+
+function findSubject(usr,weightValue){
+    let result = _.find(usr.allGrades, function(obj){
+        if(obj.weight === weightValue){
+            return true
+        }
+    })
+    console.log(result.subjectName)
 }
 
 console.log(find_max([1,2,3,4,5]))
@@ -54,3 +63,5 @@ const user = {
 }
 
 viewInfo(user)
+findSubject(user,1)
+
