@@ -30,6 +30,18 @@ function findSubject(usr,weightValue){
     console.log(result.subjectName)
 }
 
+function getMails(coll){
+    let arr = []
+    const reg = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
+    for(const c of coll){
+        if(typeof(c) === 'string' && reg.test(c)){
+            arr.push(c)
+        }
+    }
+    
+    console.log(arr.sort())
+}
+
 console.log(find_max([1,2,3,4,5]))
 console.log(find_min([1,2,3,4,5]))
 
@@ -62,6 +74,20 @@ const user = {
 
 }
 
+const collections = [
+    {},
+    15,
+    "hello@test.pl",
+    null,
+    ['aaa', 'bbb', 5],
+    'admin@gmail.com',
+    undefined,
+    'a34@yahoo.com',
+    '321@a',
+    '321.pl'
+    ];
+
 viewInfo(user)
 findSubject(user,1)
 
+getMails(collections)
