@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import ButtonInputValue from './ButtonsInputValue';
 
 export default function App() {
   const [calcText, setCalcText] = useState('0');
   const [calcSign, setCalcSign] = useState('');
+  const [isPortrait, changeOrietation] = useState(true);
+
+  useEffect(() => {
+    Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+      if (width < height) {
+        changeOrietation(true)
+      } else {
+        changeOrietation(false)
+
+      }
+    })
+
+  }, []);
   //w przyszłości te funkcje będą rozwijane
   const pressNum = (value) => {
     if (calcText !== '0' && value !== '0' || calcText.length > 1) {
@@ -30,7 +43,7 @@ export default function App() {
     switch (calcSign) {
       case '+':
         result = parseFloat(tab[0]) + parseFloat(tab[1]);
-        
+
         break;
       case '-':
         result = parseFloat(tab[0]) - parseFloat(tab[1]);
@@ -56,9 +69,23 @@ export default function App() {
     </View>
     <View style={styles.calcButtons}>
       <View style={styles.calcButtonsRow}>
-        <ButtonInputValue value='AC' pressFun={() => clearScreen()} flexSize={1}  bColor={'grey'}></ButtonInputValue>
-        <ButtonInputValue value='' pressFun={() => { }} flexSize={2} bColor={'grey'}></ButtonInputValue>
+        <ButtonInputValue value='AC' pressFun={() => clearScreen()} flexSize={1} bColor={'grey'}></ButtonInputValue>
+        {
+          isPortrait?
+          (<ButtonInputValue value='' pressFun={() => { }} flexSize={2} bColor={'grey'}></ButtonInputValue>):
+          null
+        }
         <ButtonInputValue value='/' pressFun={() => pressSign('/')} flexSize={1} bColor={'orange'}></ButtonInputValue>
+        {
+          !isPortrait?
+          (<ButtonInputValue value='(' pressFun={() => pressNum('(')} flexSize={1} bColor={'orange'}></ButtonInputValue>):
+          null
+        }
+        {
+          !isPortrait?
+          (<ButtonInputValue value=')' pressFun={() => pressNum(')')} flexSize={1} bColor={'orange'}></ButtonInputValue>):
+          null
+        }
       </View>
       <View style={styles.calcButtonsRow}>
         <ButtonInputValue value='7' pressFun={() => pressNum('7')} flexSize={1} bColor={'darkgrey'}></ButtonInputValue>

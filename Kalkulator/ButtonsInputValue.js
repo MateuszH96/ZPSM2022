@@ -3,6 +3,20 @@ import { TouchableOpacity,StyleSheet, View, Text,Dimensions} from "react-native"
 
 
 export default function ButtonInputValue(props){
+    
+    const [fontSizeButton,chageFontSize] = useState(60);
+
+    useEffect(() => {
+        Dimensions.addEventListener('change', ({window:{width,height}})=>{
+          if (width<height) {
+            chageFontSize(60)
+          } else {
+            chageFontSize(30)
+          }
+        })
+    
+      }, []);
+    
 
     const styles=StyleSheet.create({
         container:{
@@ -14,7 +28,7 @@ export default function ButtonInputValue(props){
             borderWidth:1
         },
         textDecoration:{
-            fontSize: 60
+            fontSize: fontSizeButton 
         }
     })
 
