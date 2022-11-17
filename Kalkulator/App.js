@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import ButtonInputValue from './ButtonsInputValue';
+import SplashScreen from 'react-native-splash-screen'
 
 export default function App() {
+  useEffect(()=>{
+    SplashScreen.hide();
+  },[])
   const [calcText, setCalcText] = useState('0');
   const [isComma, setBoolComma] = useState(false);
   const [isSign, setBoolSign] = useState(false); 
