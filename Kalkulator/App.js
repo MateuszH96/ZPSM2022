@@ -4,49 +4,44 @@ import ButtonInputValue from './ButtonsInputValue';
 
 export default function App() {
   const [calcText, setCalcText] = useState('0');
-  const [calcSign, setCalcSign] = useState('');
-  //w przyszłości te funkcje będą rozwijane
+  const [isComma, setBoolComma] = useState(false);
+  const [isSign, setBoolSign] = useState(false); 
   const pressNum = (value) => {
     if (calcText !== '0' && value !== '0' || calcText.length > 1) {
       setCalcText(calcText + value);
+      if(value >= '0' && value<='9'){
+        setBoolSign(false);
+      }
     } else {
       setCalcText(value);
     }
+    setBoolComma(false);
   }
   const clearScreen = () => {
     setCalcText('0');
+    setBoolSign(false);
   }
 
   const pressSign = (sign) => {
-    setCalcSign(sign);
-    pressNum(sign);
-  }
-
-  const calculate = () => {
-    const tab = calcText.split(calcSign);
-    result = 0;
-    console.clear()
-    console.log(calcSign)
-    switch (calcSign) {
-      case '+':
-        result = parseFloat(tab[0]) + parseFloat(tab[1]);
-        
-        break;
-      case '-':
-        result = parseFloat(tab[0]) - parseFloat(tab[1]);
-        break;
-      case '*':
-        result = parseFloat(tab[0]) * parseFloat(tab[1]);
-        break;
-      case '/':
-        result = parseFloat(tab[0]) / parseFloat(tab[1]);
-        break;
+    let len = calcText.length;
+    if(!isSign && calcText[len-1]!=='.')
+    {
+      pressNum(sign);
+      setBoolSign(true);
+      setBoolComma(true);
     }
-    console.log(parseFloat(tab[0]))
-    console.log(parseFloat(tab[1]))
-    console.log(result)
+  }
+  const pressComma = ()=>
+  {
+    let len = calcText.length;
+    if(!isComma && calcText[len-1]>='0' && calcText[len-1]<='9'){
+      pressNum('.')
+      setBoolComma(true)
+    }
+  }
+  const calculate = () => {
+    result = eval(calcText)
     setCalcText(result.toString())
-    setCalcSign('')
   }
   return (<View style={styles.constainer}>
     <View style={styles.calcScreen}>
@@ -80,7 +75,7 @@ export default function App() {
       </View>
       <View style={styles.calcButtonsRow}>
         <ButtonInputValue value='0' pressFun={() => pressNum('0')} flexSize={2} bColor={'darkgrey'}></ButtonInputValue>
-        <ButtonInputValue value=',' pressFun={() => pressNum('.')} flexSize={1} bColor={'darkgrey'}></ButtonInputValue>
+        <ButtonInputValue value=',' pressFun={() => pressComma()} flexSize={1} bColor={'darkgrey'}></ButtonInputValue>
         <ButtonInputValue value='=' pressFun={() => calculate()} flexSize={1} bColor={'orange'}></ButtonInputValue>
       </View>
     </View>
