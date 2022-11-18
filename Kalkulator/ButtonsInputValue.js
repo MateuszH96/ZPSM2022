@@ -14,7 +14,7 @@ export default function ButtonInputValue(props){
             borderWidth:1
         },
         textDecoration:{
-            fontSize: 60
+            fontSize: props.sizeFont
         }
     })
 
